@@ -1,92 +1,40 @@
-# 🔳 QR Projects Hub – Tu portafolio, en una tarjeta
+# 🎴 Tarjeta Digital Profesional – QR + WhatsApp
 
-![Next.js](https://img.shields.io/badge/Next.js-15+-black?logo=nextdotjs)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4+-06B6D4?logo=tailwindcss)
-![License MIT](https://img.shields.io/badge/License-MIT-green)
-[![Vercel](https://img.shields.io/badge/Deploy%20con%20Vercel-gratis-black?logo=vercel)](https://vercel.com)
+[![Licencia](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](#)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](#)
+[![QR Code](https://img.shields.io/badge/QR_Code-dinámico-0a0f1e)](#)
 
-**De un código QR físico a una landing individual con tabla comparativa persuasiva para cada uno de tus proyectos o servicios.**
+**Tarjeta de presentación imprimible de dos caras**, con un código QR que lleva directamente a tu **WhatsApp**. Diseño oscuro elegante, tipografía Inter, líneas doradas y formato estándar de tarjeta de crédito (55 × 85 mm).
 
-En lugar de llevar a tus clientes a un simple WhatsApp, llévalos a un dashboard profesional que les muestra por qué deben trabajar contigo.
+> ✨ Ideal para desarrolladores, consultores tecnológicos y emprendedores que quieren dejar una impresión moderna y memorable.
 
-## 🎯 ¿Qué problema resuelve?
+---
 
-Como desarrollador o profesional con múltiples especializaciones, necesitas mostrar diferentes proyectos a diferentes clientes sin tener que preparar una presentación cada vez.  
-**QR Projects Hub** te permite:
+## 📸 Vista previa
 
-- Tener **una sola tarjeta física** con un código QR base.
-- Que ese QR lleve al cliente **automáticamente al proyecto adecuado** según el sector (turismo, fintech, e‑commerce, etc.).
-- Mostrar una **tabla comparativa al estilo Tapstar**, donde resaltas tus ventajas frente a la competencia.
-- Gestionar todo desde un panel de administración sin tocar código.
+| Cara frontal | Cara trasera |
+|--------------|--------------|
+| ![Frente](preview-frente.png) | ![Dorso](preview-dorso.png) |
 
-## ✨ Características principales
+*(Agregá capturas de pantalla reales o una foto de la tarjeta impresa para personalizar esta sección.)*
 
-- 🧭 **QR dinámico**: un único enlace base redirige al proyecto correcto mediante parámetros (`/p/ecochain-nexus`).
-- 📊 **Tabla comparativa interactiva**: cada proyecto se presenta con una tabla de características, precios, competidores y una recomendación final persuasiva.
-- 🎨 **Diseño responsive y moderno**: construido con Next.js, TypeScript y Tailwind CSS, listo para móviles.
-- 🛠 **Dashboard de administración**: ruta protegida (`/admin`) donde puedes editar textos, precios y competidores sin modificar código.
-- 🖨 **Tarjeta física lista para imprimir**: exporta un PDF en formato 85×55 mm con el código QR y los datos del proyecto.
-- 🔒 **Seguridad integrada**: helmet, CSP, CORS restrictivo, ruta admin protegida con token.
-- 🚀 **Despliegue gratuito en Vercel**: la aplicación funciona completamente sin backend costoso, los datos se cargan desde archivos JSON.
+---
 
-## 📸 Demostración visual
+## 🚀 Características
 
-| Landing de proyecto | Panel de administración |
-|---------------------|--------------------------|
-| ![landing](docs/landing.png) | ![admin](docs/admin.png) |
+- 🎨 **Diseño premium**: fondo degradado azul profundo, detalles dorados, tipografía fina.
+- 📱 **QR vinculado a WhatsApp**: escaneá y chateá al instante.
+- 🖨️ **Listo para imprenta**: tamaño exacto 55 × 85 mm, márgenes 0, colores de fondo imprimibles.
+- 🧩 **Frontal y dorso**: dos páginas en un mismo archivo HTML, se exportan como PDF automáticamente.
+- ⚙️ **Personalización fácil**: cambiá el número de WhatsApp, el nombre, las especialidades o los colores en segundos.
+- 🌐 **Tecnologías gratuitas**: Tailwind CSS (CDN), Google Fonts, QRCode.js, sin dependencias pesadas.
 
-*Agrega tus propias capturas en la carpeta `docs/`*
+---
 
-## 🧰 Stack tecnológico
+## 🛠️ Cómo usar
 
-**Frontend**
-- [Next.js 15](https://nextjs.org/) (App Router)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [QRCode.react](https://www.npmjs.com/package/qrcode.react) (generación de QR)
-
-**Backend (opcional)**
-- [Next.js API Routes](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)
-- [Prisma](https://www.prisma.io/) + PostgreSQL (si activas persistencia)
-
-**Despliegue**
-- [Vercel](https://vercel.com/) (gratis)
-- [Supabase](https://supabase.com/) (base de datos gratuita si se necesita)
-
-## 📂 Estructura del proyecto
-qr-projects-hub/
-├── app/
-│ ├── page.tsx # Landing genérica
-│ ├── layout.tsx # Layout principal
-│ ├── admin/
-│ │ └── page.tsx # Dashboard protegido
-│ └── p/
-│ └── [id]/
-│ └── page.tsx # Landing individual del proyecto
-├── components/
-│ ├── ComparativaTable.tsx # Tabla comparativa reutilizable
-│ ├── ProjectQR.tsx # Componente de QR
-│ ├── AdminPanel.tsx # Formulario de edición
-│ └── TarjetaPDF.tsx # Exportación a PDF
-├── data/
-│ └── projects.json # Datos de los proyectos (8 ejemplos incluidos)
-├── lib/
-│ ├── projects.ts # Funciones de acceso a datos
-│ └── security.ts # Middleware de seguridad
-├── public/
-│ └── qrcodes/ # QR pregenerados (opcional)
-├── styles/
-│ └── globals.css
-├── .env.example
-├── package.json
-└── README.md
-
-text
-
-## ⚙️ Instalación y puesta en marcha
-
-1. **Clona el repositorio**
-   ```bash
-   git clone https://github.com/tuusuario/qr-projects-hub.git
-   cd qr-projects-hub
+### 1. Cloná el repositorio
+```bash
+git clone https://github.com/tuusuario/tarjeta-digital.git
+cd tarjeta-digital
