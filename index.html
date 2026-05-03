@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Profesional – Soluciones Digitales Studio</title>
+
+  <!-- Tailwind + Inter (fuente fina y moderna) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- ✅ Librería QR CORRECTA (qrcodejs – genera canvas visible) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <style>
+    /* ========== IMPRESIÓN ========== */
+    @page {
+      size: 55mm 85mm;   /* vertical, tarjeta de crédito */
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .cara {
+        width: 55mm;
+        height: 85mm;
+        box-shadow: none;
+        border-radius: 0;
+        page-break-after: always;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cara:last-child {
+        page-break-after: auto;
+      }
+    }
+
+    /* ========== PANTALLA (vista previa) ========== */
+    @media screen {
+      body {
+        background: #e5e7eb;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 40px 0;
+        gap: 40px;
+      }
+      .cara {
+        width: 55mm;
+        height: 85mm;
+        box-shadow: 0 30px 60px -10px rgba(0,0,0,0.25);
+        border-radius: 4mm;
+        transition: transform 0.3s ease;
+      }
+      .cara:hover {
+        transform: translateY(-4px);
+      }
+    }
+
+    /* ========== ESTILOS DE LA TARJETA ========== */
+    .cara {
+      background: linear-gradient(145deg, #0a0f1e 0%, #1a1f2e 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4mm 5mm;          /* menos padding vertical → menos espacio vacío */
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Líneas doradas decorativas (más juntas) */
+    .decoracion {
+      position: absolute;
+      width: 55%;
+      height: 1px;
+      background: rgba(212,175,55,0.7);
+      top: 10mm;
+      left: 22.5%;
+    }
+    .decoracion-abajo {
+      top: auto;
+      bottom: 10mm;
+    }
+
+    .logo-texto {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 3mm;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .nombre {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      margin-bottom: 1mm;
+    }
+
+    .cargo {
+      font-size: 6.5px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.1em;
+      margin-bottom: 4mm;
+    }
+
+    /* Contenedor del QR */
+    .qr-wrapper {
+      background: white;
+      border-radius: 2.5mm;
+      padding: 2mm;
+      box-shadow: 0 0 10px rgba(212,175,55,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .frase {
+      font-size: 6px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .especialidades {
+      font-size: 7px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      line-height: 1.8;
+      margin-bottom: 4mm;
+    }
+
+    .contacto {
+      font-size: 6px;
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      line-height: 1.5;
+      margin-top: 3mm;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== CARA FRONTAL ==================== -->
+  <div class="cara">
+    <div class="decoracion"></div>
+
+    <div class="logo-texto">Soluciones<br>Digitales Studio</div>
+    <h1 class="nombre">Nicolás Luciano Márquez</h1>
+    <p class="cargo">DESARROLLADOR & CONSULTOR TECNOLÓGICO</p>
+
+    <!-- QR grande hacia WhatsApp -->
+    <div class="qr-wrapper" style="width:32mm; height:32mm;">
+      <div id="qr-front"></div>
+    </div>
+
+    <p class="frase mt-2">Escaneá y hablame<br>por WhatsApp</p>
+    <div class="decoracion decoracion-abajo"></div>
+  </div>
+
+  <!-- ==================== CARA TRASERA ==================== -->
+  <div class="cara">
+    <div class="decoracion"></div>
+
+    <div class="logo-texto" style="font-size:11px; margin-bottom:4mm;">Soluciones<br>Digitales Studio</div>
+
+    <div class="especialidades">
+      <span style="color:#d4af37;">●</span> Ciberseguridad<br>
+      <span style="color:#d4af37;">●</span> Fullstack WEB/APP<br>
+      <span style="color:#d4af37;">●</span> Web3 / Blockchain
+    </div>
+
+    <!-- QR más chico -->
+    <div class="qr-wrapper" style="width:18mm; height:18mm; padding:1.2mm;">
+      <div id="qr-back"></div>
+    </div>
+
+    <div class="contacto">
+      n.l.marquez@email.com<br>
+      +54 9 3541 62-6222
+    </div>
+    <div class="decoracion decoracion-abajo"></div>
+  </div>
+
+  <!-- ==================== SCRIPT QUE GENERA LOS QR ==================== -->
+  <script>
+    // 1) Número de WhatsApp (Córdoba, Argentina). Cambialo si tenés otro.
+    const numeroWhatsApp = "5493541626222";   // sin espacios, sin +, con código de país
+    const qrUrl = `https://wa.me/${numeroWhatsApp}`;
+
+    // 2) Función para crear el QR cuando el DOM esté listo
+    function generarQRCodes() {
+      // QR frontal (grande)
+      new QRCode(document.getElementById("qr-front"), {
+        text: qrUrl,
+        width: 120,
+        height: 120,
+        colorDark: "#0a0f1e",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      // QR trasero (pequeño)
+      new QRCode(document.getElementById("qr-back"), {
+        text: qrUrl,
+        width: 56,
+        height: 56,
+        colorDark: "#0a0f1e",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+
+    // Ejecutar cuando la página cargue completamente
+    window.addEventListener('load', generarQRCodes);
+  </script>
+
+  <!-- Instrucciones (no se imprimen) -->
+  <div class="no-print bg-white p-4 rounded-lg shadow text-gray-700 text-center max-w-xs text-sm mt-4">
+    <p class="mb-2">🔗 <strong>WhatsApp configurado:</strong><br><span class="font-mono bg-gray-100 px-1 rounded">+54 9 3541 62-6222</span></p>
+    <p>🖨️ <strong>Imprimir:</strong> Ctrl+P → Tamaño personalizado <strong>55×85 mm</strong>, márgenes «Ninguno», activar «Gráficos de fondo».</p>
+    <p class="mt-1 text-xs text-gray-500">El PDF tendrá 2 páginas (frente y dorso).</p>
+  </div>
+
+</body>
+</html>
